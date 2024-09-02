@@ -3,20 +3,22 @@ import 'dart:developer';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_boilerplate/src/application.dart';
+import 'package:injectable/injectable.dart';
 
+import 'application.dart';
+import 'core/configurations/configurations.dart';
 import 'dependency/di.dart';
-import 'domain/entities/configuration.dart';
 import 'presenstations/dashboard/bloc/dashboard_bloc.dart';
 
 class AppDelegate {
-  static Future<void> run(Map<String, dynamic> env) async {
+  static void run(Map<String, dynamic> env) {
     runZonedGuarded(
       () async {
         WidgetsFlutterBinding.ensureInitialized();
-        Configuration.setConfiguration(env);
+        Configurations.setConfiguration(env);
 
-        await configureDependencies();
+        await configureDependencies(environment: Environment.prod);
+
         runApp(
           Application(
             providers: [

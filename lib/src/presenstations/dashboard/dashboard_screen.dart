@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_boilerplate/src/presenstations/dashboard/dasboard_builder.dart';
 
 import 'bloc/dashboard_bloc.dart';
+import 'dasboard_builder.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const String routeName = 'dashboard';

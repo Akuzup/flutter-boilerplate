@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 
 // short const => @microPackageInit
 @InjectableInit.microPackage()
-void initFimaCoreMicroPackage() {} // will not be called
+void initAppCoreMicroPackage() {} // will not be called
 
 GetIt injector = GetIt.instance;
 

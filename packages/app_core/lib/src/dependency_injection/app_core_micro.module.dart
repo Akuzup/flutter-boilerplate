@@ -1,4 +1,4 @@
-//@GeneratedMicroModule;FimaCorePackageModule;package:fima_core/src/dependency_injection/mobilehub_core_micro.module.dart
+//@GeneratedMicroModule;AppCorePackageModule;package:app_core/src/dependency_injection/app_core_micro.module.dart
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
 // coverage:ignore-file
@@ -8,7 +8,7 @@ import 'dart:async' as _i687;
 
 import 'package:injectable/injectable.dart' as _i526;
 
-class FimaCorePackageModule extends _i526.MicroPackageModule {
+class AppCorePackageModule extends _i526.MicroPackageModule {
 // initializes the registration of main-scope dependencies inside of GetIt
   @override
   _i687.FutureOr<void> init(_i526.GetItHelper gh) {}

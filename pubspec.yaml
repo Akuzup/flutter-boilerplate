@@ -14,26 +14,38 @@ dependencies:
   app_core:
     path: packages/app_core
 
+  # Dependency_injection
   get_it: ^7.6.2
-  freezed: ^2.4.1
-  freezed_annotation: ^2.4.1
-  json_annotation: ^4.8.0
-  injectable: ^2.2.0
-  supabase_flutter: ^2.6.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   shared_preferences: ^2.3.2
   flutter_bloc: ^8.1.6
+  rxdart: ^0.28.0
+  country_pickers: ^3.0.1
+  supabase_flutter: ^2.6.0
+
+  # Network client
+  dio: ^5.6.0
+  retrofit: ^4.2.0
+
+  # Core
   equatable: ^2.0.5
+  injectable: ^2.2.0
+  json_annotation: ^4.8.0
+  freezed_annotation: ^2.4.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
   build_runner: ^2.4.9
   injectable_generator: ^2.2.0
   build_runner_core: ^7.2.0
+  retrofit_generator: ^8.2.1
+  json_serializable: ^6.5.4
+  freezed: ^2.1.0+1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
