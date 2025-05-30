@@ -1,4 +1,4 @@
-library fima_core;
+library;
 
 export 'src/dependency_injection/app_core_micro.module.dart';
 export 'src/networking/api_response.dart';
