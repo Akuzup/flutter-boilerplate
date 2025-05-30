@@ -95,44 +95,46 @@ flutter_boilerplate/
 ## 🛠️ Technologies & Dependencies
 
 ### Core Dependencies
-- **Flutter SDK**: ^3.8.0
+- **Flutter SDK**: ^3.32.0
 - **Dart**: ^3.8.0
+- **Xcode**: ^16.2
 
 ### State Management
-- **flutter_bloc**: ^9.1.1 - BLoC pattern implementation
-- **rxdart**: ^0.28.0 - Reactive programming utilities
+- **flutter_bloc**: BLoC pattern implementation
+- **rxdart**: Reactive programming utilities
 
 ### Dependency Injection
-- **get_it**: ^8.0.3 - Service locator
-- **injectable**: ^2.5.0 - Code generation for DI
+- **get_it**: Service locator
+- **injectable**: Code generation for DI
 
 ### Networking
-- **dio**: ^5.8.0+1 - HTTP client
-- **retrofit**: ^4.4.2 - Type-safe API client generation
+- **dio**: - HTTP client
+- **retrofit**: Type-safe API client generation
 
 ### Backend Integration
-- **supabase_flutter**: ^2.9.0 - Supabase client
+- **supabase_flutter**: Supabase client
 
 ### Local Storage
-- **shared_preferences**: ^2.5.3 - Key-value storage
+- **shared_preferences**: Key-value storage
 
 ### Code Generation
-- **freezed**: ^3.0.6 - Immutable classes and unions
-- **json_annotation**: ^4.9.0 - JSON serialization
-- **build_runner**: ^2.4.15 - Code generation runner
+- **freezed**: Immutable classes and unions
+- **json_annotation**: JSON serialization
+- **build_runner**: Code generation runner
 
 ### Development Tools
-- **flutter_lints**: ^6.0.0 - Linting rules
-- **injectable_generator**: ^2.7.0 - DI code generation
-- **retrofit_generator**: ^9.2.0 - API client generation
-- **json_serializable**: ^6.9.5 - JSON serialization generation
+- **flutter_lints**: Linting rules
+- **injectable_generator**: DI code generation
+- **retrofit_generator**: API client generation
+- **json_serializable**: JSON serialization generation
 
 ## 🚦 Getting Started
 
 ### Prerequisites
-- Flutter SDK (^3.8.0)
+- Flutter SDK (^3.32.0)
 - Dart SDK (^3.8.0)
 - IDE (VS Code, Android Studio, or IntelliJ)
+- Xcode (^16.2)
 
 ### Installation
 
