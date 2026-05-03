@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'presenstations/dashboard/dashboard_screen.dart';
-import 'presenstations/routes.dart';
+import 'presentations/dashboard/dashboard_screen.dart';
+import 'presentations/routes.dart';
 
 class Application extends StatefulWidget {
-  const Application({
-    super.key,
-    required this.providers,
-  });
+  const Application({super.key, required this.providers});
 
   final List<BlocProvider> providers;
 

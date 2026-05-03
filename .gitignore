@@ -8,7 +8,7 @@
 .buildlog/
 .history
 .svn/
-
+.omc/
 # IntelliJ related
 *.iml
 *.ipr
@@ -95,3 +95,4 @@ linux/**
 ios/Config.xcconfig
 
 .fvm/
+.omc/state

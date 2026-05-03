@@ -1,15 +1,21 @@
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../core/providers/yescaleai_network_provider.dart';
+import '../../core/configurations/configurations.dart';
+import '../../core/providers/chat_network_provider.dart';
 
 @module
 abstract class DatesourceModule {
   @lazySingleton
-  YescaleaiNetworkProvider createYescaleaiNetworkProvider(
-    String baseUrl,
-    String apiKey,
+  ChatNetworkProvider createChatNetworkProvider(
     SharedPreferences sharedPreferences,
-  ) =>
-      YescaleaiNetworkProvider(baseUrl, apiKey, sharedPreferences);
+  ) {
+    final config = Configurations.chatConfiguration;
+    return ChatNetworkProvider(
+      config.baseUrl,
+      config.apiKey,
+      sharedPreferences,
+      timeout: config.timeout,
+    );
+  }
 }

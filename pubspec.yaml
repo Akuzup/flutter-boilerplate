@@ -11,9 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  app_core:
-    path: packages/app_core
-
   # Dependency_injection
   get_it: 8.0.3
 
@@ -35,6 +32,10 @@ dependencies:
   injectable: 2.5.0
   json_annotation: 4.9.0
   freezed_annotation: 3.0.0
+
+  # Chat feature
+  uuid: ^4.5.1
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
