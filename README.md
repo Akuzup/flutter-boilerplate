@@ -1,456 +1,181 @@
 # Flutter Boilerplate
 
-A comprehensive Flutter boilerplate project implementing Clean Architecture with AI chat integration. This project serves as a production-ready foundation for Flutter applications with modern development practices and scalable architecture.
+Flutter AI chat application using NVIDIA API (`z-ai/glm4.7` model). Clean Architecture with BLoC state management. Dart SDK ^3.8.0, Material 3 enabled.
 
-## 🚀 Features
+## Commands
 
-- **Clean Architecture**: Well-structured codebase following Clean Architecture principles
-- **AI Chat Integration**: Built-in integration with YescaleAI for conversational AI features
-- **Dependency Injection**: Robust DI system using GetIt and Injectable
-- **State Management**: BLoC pattern for predictable state management
-- **Multi-platform Support**: iOS, Android, Web, macOS, and Windows
-- **Networking**: Type-safe API calls with Retrofit and Dio
-- **Local Storage**: SharedPreferences integration for data persistence
-- **Supabase Integration**: Backend-as-a-Service integration
-- **Modular Architecture**: Separate core package for reusable components
-
-## 🏗️ Architecture
-
-This project follows **Clean Architecture** principles with clear separation of concerns:
-
-```
-lib/src/
-├── core/                 # Core configurations and providers
-├── data/                 # Data layer (repositories, data sources)
-├── domain/               # Domain layer (entities, use cases, repositories)
-├── presentations/        # Presentation layer (UI, BLoC, screens)
-└── dependency/           # Dependency injection configuration
-```
-
-### Architecture Layers
-
-1. **Domain Layer** (`lib/src/domain/`)
-   - **Entities**: Core business objects (e.g., `Conversation`, `MessageCompletion`)
-   - **Repositories**: Abstract interfaces for data operations
-   - **Use Cases**: Business logic and application-specific rules
-
-2. **Data Layer** (`lib/src/data/`)
-   - **Repositories**: Concrete implementations of domain repositories
-   - **Data Sources**: Remote API clients and local storage handlers
-   - **Models**: Data transfer objects and API response models
-
-3. **Presentation Layer** (`lib/src/presentations/`)
-   - **Screens**: UI components and pages
-   - **BLoC**: State management using BLoC pattern
-   - **Widgets**: Reusable UI components
-
-4. **Core Layer** (`lib/src/core/`)
-   - **Configurations**: App settings and environment variables
-   - **Providers**: Network providers and service configurations
-
-## 📁 Project Structure
-
-```
-flutter_boilerplate/
-├── lib/
-│   ├── main.dart                    # Application entry point
-│   └── src/
-│       ├── app_delegate.dart        # App initialization and setup
-│       ├── application.dart         # Main app widget with providers
-│       ├── core/                    # Core configurations
-│       │   ├── configurations/      # Environment and app configs
-│       │   └── providers/           # Network and service providers
-│       ├── data/                    # Data layer implementation
-│       │   ├── datasource/          # API clients and data sources
-│       │   └── repository/          # Repository implementations
-│       ├── domain/                  # Business logic layer
-│       │   ├── entities/            # Domain models
-│       │   ├── repository/          # Repository interfaces
-│       │   └── usecase/             # Business use cases
-│       ├── presentations/           # UI layer
-│       │   ├── dashboard/           # Dashboard feature
-│       │   ├── home/                # Home feature
-│       │   ├── settings/            # Settings feature
-│       │   └── routes.dart          # App routing configuration
-│       └── dependency/              # Dependency injection
-│           ├── di.dart              # DI configuration
-│           └── modules/             # DI modules
-├── packages/
-│   └── app_core/                    # Core package for reusable components
-│       ├── lib/
-│       │   ├── src/
-│       │   │   ├── networking/      # HTTP client and interceptors
-│       │   │   ├── router/          # Navigation utilities
-│       │   │   └── dependency_injection/ # Core DI setup
-│       │   └── app_core.dart        # Package exports
-│       └── pubspec.yaml
-├── android/                         # Android-specific code
-├── ios/                             # iOS-specific code
-├── web/                             # Web-specific code
-├── macos/                           # macOS-specific code
-├── windows/                         # Windows-specific code
-└── pubspec.yaml                     # Project dependencies
-```
-
-## 🛠️ Technologies & Dependencies
-
-### Core Dependencies
-- **Flutter SDK**: ^3.32.0
-- **Dart**: ^3.8.0
-- **Xcode**: ^16.2
-
-### State Management
-- **flutter_bloc**: BLoC pattern implementation
-- **rxdart**: Reactive programming utilities
-
-### Dependency Injection
-- **get_it**: Service locator
-- **injectable**: Code generation for DI
-
-### Networking
-- **dio**: - HTTP client
-- **retrofit**: Type-safe API client generation
-
-### Backend Integration
-- **supabase_flutter**: Supabase client
-
-### Local Storage
-- **shared_preferences**: Key-value storage
-
-### Code Generation
-- **freezed**: Immutable classes and unions
-- **json_annotation**: JSON serialization
-- **build_runner**: Code generation runner
-
-### Development Tools
-- **flutter_lints**: Linting rules
-- **injectable_generator**: DI code generation
-- **retrofit_generator**: API client generation
-- **json_serializable**: JSON serialization generation
-
-## 🚦 Getting Started
-
-### Prerequisites
-- Flutter SDK (^3.32.0)
-- Dart SDK (^3.8.0)
-- IDE (VS Code, Android Studio, or IntelliJ)
-- Xcode (^16.2)
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd flutter_boilerplate
-   ```
-
-2. **Install dependencies**
-   ```bash
-   flutter pub get
-   cd packages/app_core
-   flutter pub get
-   cd ../..
-   ```
-
-3. **Generate code**
-   ```bash
-   # Generate dependency injection and API clients
-   flutter packages pub run build_runner build --delete-conflicting-outputs
-
-   # Or use the provided script
-   chmod +x gen.sh
-   ./gen.sh
-   ```
-
-4. **Configure environment**
-   - Update configuration files in `lib/src/core/configurations/env/`
-   - Set your API keys and endpoints in the environment files
-
-5. **Run the application**
-   ```bash
-   flutter run
-   ```
-
-### Environment Configuration
-
-The app supports multiple environments through configuration files:
-
-- `lib/src/core/configurations/env/dev_env.dart` - Development environment
-- `lib/src/core/configurations/default_config.dart` - Default configurations
-
-Update these files with your specific API endpoints and keys:
-
-```dart
-// Example configuration
-class DefaultConfigurations {
-  static const String supabaseProjectUrl = 'YOUR_SUPABASE_URL';
-  static const String supabaseApiKey = 'YOUR_SUPABASE_KEY';
-  static YescaleaiConfiguration yescaleaiConfiguration = YescaleaiConfiguration(
-    baseUrl: 'YOUR_AI_API_URL',
-    apiKey: 'YOUR_AI_API_KEY',
-    enable: true,
-  );
-}
-```
-
-## 🔧 Development Guide
-
-### Adding New Features
-
-1. **Create Domain Layer**
-   ```bash
-   # Create entity
-   lib/src/domain/entities/your_entity.dart
-
-   # Create repository interface
-   lib/src/domain/repository/your_repository.dart
-
-   # Create use case
-   lib/src/domain/usecase/your_usecase.dart
-   ```
-
-2. **Implement Data Layer**
-   ```bash
-   # Create API client (if needed)
-   lib/src/data/datasource/remote/your_api.dart
-
-   # Implement repository
-   lib/src/data/repository/your_repository.impl.dart
-   ```
-
-3. **Create Presentation Layer**
-   ```bash
-   # Create BLoC
-   lib/src/presentations/your_feature/bloc/your_bloc.dart
-
-   # Create screen
-   lib/src/presentations/your_feature/your_screen.dart
-   ```
-
-4. **Register Dependencies**
-   - Add your dependencies to the appropriate DI module
-   - Run code generation: `flutter packages pub run build_runner build`
-
-### Dependency Injection
-
-The project uses **GetIt** with **Injectable** for dependency injection:
-
-#### Key DI Files:
-- `lib/src/dependency/di.dart` - Main DI configuration
-- `lib/src/dependency/di.config.dart` - Generated DI code
-- `lib/src/dependency/modules/` - DI modules for different concerns
-
-#### DI Modules:
-- **LocalStorageModule**: SharedPreferences and Dio configuration
-- **SupabaseModule**: Supabase client initialization
-- **DatasourceModule**: API clients and network providers
-
-#### Usage Example:
-```dart
-// Register a service
-@injectable
-class YourService {
-  final YourRepository repository;
-  YourService({required this.repository});
-}
-
-// Inject in widget
-final service = injector.get<YourService>();
-```
-
-### State Management with BLoC
-
-The project uses **BLoC pattern** for state management:
-
-#### BLoC Structure:
-```dart
-// Events
-abstract class YourEvent extends Equatable {}
-
-// States
-abstract class YourState extends Equatable {}
-
-// BLoC
-class YourBloc extends Bloc<YourEvent, YourState> {
-  final YourUsecase usecase;
-
-  YourBloc({required this.usecase}) : super(YourInitial()) {
-    on<YourEvent>(_onYourEvent);
-  }
-}
-```
-
-#### Provider Registration:
-```dart
-// In app_delegate.dart
-BlocProvider<YourBloc>(
-  create: (context) => injector.get<YourBloc>(),
-),
-```
-
-### Networking
-
-The project uses **Dio** with **Retrofit** for type-safe API calls:
-
-#### API Client Example:
-```dart
-@RestApi()
-abstract class YourApi {
-  factory YourApi(Dio dio) = _YourApi;
-
-  @POST('/endpoint')
-  Future<ApiResponse<YourModel>> yourMethod(
-    @Body() Map<String, dynamic> payload,
-  );
-}
-```
-
-#### Network Provider:
-- Automatic token injection via `ApiTokenInterceptor`
-- Request/response logging via `LoggerInterceptor`
-- Error handling with custom exceptions
-
-### Code Generation
-
-The project uses several code generators:
-
-#### Available Scripts:
 ```bash
-# Generate all code
+# Install dependencies
+flutter pub get
+
+# Run code generation (injectable, retrofit, json_serializable)
 ./gen.sh
+# Or equivalently:
+dart run build_runner build --delete-conflicting-outputs
 
-# Manual generation
-flutter packages pub run build_runner build --delete-conflicting-outputs
+# Run the app
+flutter run
 
-# Watch mode (auto-generate on file changes)
-flutter packages pub run build_runner watch
+# Analyze code
+flutter analyze
+
+# Clean iOS (Pods + pub get)
+./script-clean-basic.sh
+
+# Deep clean all packages
+./script-clean-advance.sh
 ```
 
-#### Generated Files:
-- `*.g.dart` - JSON serialization
-- `*.freezed.dart` - Immutable classes
-- `di.config.dart` - Dependency injection
-- API client implementations
+## Architecture
 
-## 🧪 Testing
+**Layer-first Clean Architecture** under `lib/src/`:
 
-### Running Tests
-```bash
-# Run all tests
-flutter test
+```
+lib/
+  main.dart                           # Entry point
+  src/
+    app_delegate.dart                 # Bootstrap orchestrator
+    app_coordinator.dart              # Navigation/dialog coordinator
+    application.dart                  # Root MaterialApp widget
 
-# Run tests with coverage
-flutter test --coverage
+    core/
+      components/                     # Reusable UI widgets
+      configurations/                 # Environment config (ChatConfiguration)
+      extensions/                     # Dart extensions
+      networking/                     # Dio factory, interceptors, ApiResponse, ApiException
+      providers/                      # ChatNetworkProvider (Dio + interceptors)
+      router/                         # Modular routing (not wired in)
+      utils/                          # Utility functions
 
-# Run specific test file
-flutter test test/widget_test.dart
+    data/
+      datasource/local/               # SharedPreferences persistence
+      datasource/remote/              # Retrofit API clients
+      repository/                     # Repository implementations
+
+    domain/
+      entities/                       # Business models (Conversation, MessageCompletion)
+      repository/                     # Abstract repository interfaces
+      usecase/                        # Use cases
+
+    presentations/
+      routes.dart                     # onGenerateRoute switch
+      dashboard/                      # Bottom nav shell (Chat + Settings tabs)
+      chat_list/                      # Conversation list screen
+      chat_detail/                    # Chat detail screen
+      settings/                       # Settings screen (placeholder)
+      shared/dialogs/                 # Shared dialog widgets
+
+    dependency/
+      di.dart                         # GetIt + @InjectableInit
+      di.config.dart                  # Generated DI config
+      modules/                        # DI modules
 ```
 
-### Test Structure
+### Dependency Rule
+
 ```
-test/
-├── unit/           # Unit tests
-├── widget/         # Widget tests
-└── integration/    # Integration tests
+Presentation  →  Domain  ←  Data
+   (BLoC, UI)    (Entity,    (API, Local
+                  UseCase,    Datasource,
+                  Repository  Repository
+                  interface)  impl)
 ```
 
-### Writing Tests
+Presentation layer KHÔNG phụ thuộc trực tiếp vào Data layer.
 
-#### Unit Test Example:
-```dart
-void main() {
-  group('YourUsecase', () {
-    late YourUsecase usecase;
-    late MockYourRepository mockRepository;
+## Key Libraries
 
-    setUp(() {
-      mockRepository = MockYourRepository();
-      usecase = YourUsecase(repository: mockRepository);
-    });
+| Library | Purpose |
+|---------|---------|
+| `flutter_bloc` | BLoC state management with sealed events/states |
+| `get_it` + `injectable` | Dependency injection (code-generated) |
+| `dio` | HTTP client |
+| `retrofit` | Type-safe API client generation |
+| `shared_preferences` | Local key-value storage |
+| `rxdart` | Reactive programming (BehaviorSubject) |
 
-    test('should return data when repository call is successful', () async {
-      // Arrange
-      when(mockRepository.getData()).thenAnswer((_) async => testData);
+## Chat Feature
 
-      // Act
-      final result = await usecase.getData();
+- **ChatApi** (`data/datasource/remote/chat_api.dart`) — Retrofit POST to `/chat/completions` on NVIDIA API
+- **ChatLocalDatasource** (`data/datasource/local/chat_local_datasource.dart`) — stores conversations as JSON in SharedPreferences
+- **ChatRepository** (`domain/repository/`) — abstract interface + impl combining API + local storage
+- **ChatUsecase** (`domain/usecase/`) — thin wrapper over repository
+- **ChatListBloc** (`@singleton`) — conversation CRUD (load, create, delete)
+- **ChatDetailBloc** (per-instance) — message sending with optimistic UI
 
-      // Assert
-      expect(result, equals(testData));
-    });
-  });
+### API Payload (OpenAI-compatible)
+
+```json
+{
+  "model": "z-ai/glm4.7",
+  "messages": [...],
+  "temperature": 1,
+  "top_p": 1,
+  "max_tokens": 16384
 }
 ```
 
-## 📱 Platform-Specific Configuration
+## Bootstrap Flow
 
-### Android
-- **Minimum SDK**: 21
-- **Target SDK**: 34
-- **Package**: `com.example.fima`
+```
+main.dart → AppDelegate.run(devEnv) → runZonedGuarded()
+  → Configurations.setConfiguration(env)
+  → configureDependencies(environment: Environment.prod)
+  → runApp(Application(providers: [DashboardBloc, ChatListBloc]))
+```
 
-### iOS
-- **Minimum iOS**: 12.0
-- **Bundle ID**: Configure in `ios/Runner/Info.plist`
+## Routing
 
-### Web
-- **PWA Support**: Configured in `web/manifest.json`
-- **Icons**: Available in `web/icons/`
+`routes.dart` — `onGenerateRoute` switch statement with `MaterialPageRoute`.
 
-### macOS
-- **Minimum macOS**: 10.14
-- **Entitlements**: Configured for sandbox and network access
+- `BlocProvider` được cung cấp trong `routes.dart` (viết trực tiếp, không dùng static helper)
+- Screen là plain widget, KHÔNG tự tạo BlocProvider
+- Navigation/dialog/bottomsheet phải qua `AppCoordinator` extension trên BuildContext
 
-### Windows
-- **Minimum Windows**: Windows 10
-- **CMake**: Build configuration in `windows/CMakeLists.txt`
+## Dependency Injection
 
-## 🔒 Security Considerations
+Three injectable modules in `dependency/modules/`:
+- `LocalStorageModule` — SharedPreferences + prod Dio
+- `DatesourceModule` — ChatNetworkProvider
 
-1. **API Keys**: Store sensitive keys in environment variables
-2. **Network Security**: HTTPS enforced for all API calls
-3. **Token Management**: Automatic token refresh and secure storage
-4. **Input Validation**: Validate all user inputs
-5. **Error Handling**: Don't expose sensitive information in error messages
+Access via `injector.get<T>()`.
 
-## 📚 Additional Resources
+## Code Generation
 
-### Documentation
-- [Flutter Documentation](https://docs.flutter.dev/)
-- [BLoC Library](https://bloclibrary.dev/)
-- [GetIt Documentation](https://pub.dev/packages/get_it)
-- [Injectable Documentation](https://pub.dev/packages/injectable)
+Generated files (`*.g.dart`, `*.freezed.dart`, `di.config.dart`) are excluded from analysis. Always re-run `./gen.sh` after modifying:
+- `@injectable`/`@singleton` annotations → regenerates `di.config.dart`
+- `@RestApi()` API definitions → regenerates retrofit clients
+- `@JsonSerializable()` classes → regenerates serialization code
 
-### Code Style
-- Follow [Effective Dart](https://dart.dev/guides/language/effective-dart) guidelines
-- Use `flutter_lints` for consistent code style
-- Run `dart format .` before committing
+## Linting
 
-### Git Workflow
-1. Create feature branch from `main`
-2. Make changes and commit with descriptive messages
-3. Run tests and ensure code generation is up to date
-4. Create pull request for review
+Uses `package:flutter_lints/flutter.yaml` with custom overrides:
+- `prefer_relative_imports: true` — always use relative imports
+- `prefer_single_quotes: true`
+- `avoid_print: true` — use `debugPrint` instead
+- `unawaited_futures: true` — must await futures
 
-## 🤝 Contributing
+## Conventions
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+### Screen Rules
+- 1 screen = 1 file (`_screen.dart`), KHÔNG tách screen/view
+- 1 folder = 1 screen + 1 BLoC
+- Screen chứa `BlocBuilder`/`BlocConsumer` trực tiếp
+- KHÔNG viết widget method (`_buildXxx`) — tách ra `widgets/` folder
+- KHÔNG tự gọi Navigator/showDialog — phải qua AppCoordinator
+- Widget reusable → `core/components/`, utility → `core/extensions/`
 
-## 📄 License
+### BLoC Rules
+- BLoC `@singleton` nếu embedded trong dashboard/tab
+- BLoC không annotation nếu tạo mới mỗi lần navigate
+- Events/States là `sealed class` (Dart 3)
+- State UI tách riêng trong `state_ui/`, có `copyWith()`
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### Entity Rules
+- Manual `toJson()`/`fromJson()`/`copyWith()`
+- KHÔNG dùng freezed
 
-## 🙏 Acknowledgments
-
-- Flutter team for the amazing framework
-- BLoC library contributors
-- GetIt and Injectable package maintainers
-- All open-source contributors who made this project possible
-
----
-
-**Happy Coding! 🚀**
+### File Rules
+- 1 file = 1 public class
+- File không quá 250 lines
+- KHÔNG có widget class private (trừ `_XxxState` companion)

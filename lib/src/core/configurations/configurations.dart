@@ -1,57 +1,67 @@
 import 'default_config.dart';
 
 class Configurations {
-  static String _supabaseProjectUrl = DefaultConfigurations.supabaseProjectUrl;
-  static String _supabaseApiKey = DefaultConfigurations.supabaseApiKey;
-  static YescaleaiConfiguration _yescaleaiConfiguration =
-      DefaultConfigurations.yescaleaiConfiguration;
+  static ChatConfiguration _chatConfiguration =
+      DefaultConfigurations.chatConfiguration;
 
-  static String get supabaseProjectUrl => _supabaseProjectUrl;
-  static String get supabaseApiKey => _supabaseApiKey;
-  static YescaleaiConfiguration get yescaleaiConfiguration =>
-      _yescaleaiConfiguration;
+  static ChatConfiguration get chatConfiguration => _chatConfiguration;
 
   Configurations.setConfiguration(Map<String, dynamic> json) {
-    _supabaseProjectUrl = json['supabase_project_url'];
-    _supabaseApiKey = json['supabase_api_key'];
-    _yescaleaiConfiguration =
-        json['yescaleai'] != null && json['yescaleai'] is Map
-            ? YescaleaiConfiguration.fromJson(json['yescaleai'])
-            : DefaultConfigurations.yescaleaiConfiguration;
+    _chatConfiguration =
+        json['chat'] != null && json['chat'] is Map
+            ? ChatConfiguration.fromJson(json['chat'])
+            : DefaultConfigurations.chatConfiguration;
   }
 
   Map<String, dynamic> toJson() => {
-        'supabase_project_url': supabaseProjectUrl,
-        'supabase_api_key': supabaseApiKey,
-        'yescaleai_configuration': yescaleaiConfiguration.toJson(),
+        'chat': chatConfiguration.toJson(),
       };
 }
 
-class YescaleaiConfiguration {
+class ChatConfiguration {
   final String baseUrl;
   final String apiKey;
+  final String model;
   final bool enable;
+  final bool stream;
+  final bool enableThinking;
+  final int maxTokens;
+  final int timeout;
 
-  YescaleaiConfiguration({
+  ChatConfiguration({
     required this.baseUrl,
     required this.apiKey,
+    required this.model,
     required this.enable,
+    this.stream = false,
+    this.enableThinking = false,
+    this.maxTokens = 16384,
+    this.timeout = 60,
   });
 
   Map<String, dynamic> toJson() {
-    final result = <String, dynamic>{};
-
-    result.addAll({'baseUrl': baseUrl});
-    result.addAll({'apiKey': apiKey});
-    result.addAll({'enable': enable});
-    return result;
+    return {
+      'baseUrl': baseUrl,
+      'apiKey': apiKey,
+      'model': model,
+      'enable': enable,
+      'stream': stream,
+      'enableThinking': enableThinking,
+      'maxTokens': maxTokens,
+      'timeout': timeout,
+    };
   }
 
-  factory YescaleaiConfiguration.fromJson(Map<String, dynamic> map) {
-    return YescaleaiConfiguration(
+  factory ChatConfiguration.fromJson(Map<String, dynamic> map) {
+    return ChatConfiguration(
       baseUrl: map['baseUrl'] ?? '',
       apiKey: map['apiKey'] ?? '',
+      model: map['model'] ?? 'gemini-2.5-flash-lite',
       enable: map['enable'] ?? false,
+      stream: map['stream'] ?? false,
+      enableThinking: map['enableThinking'] ?? false,
+      maxTokens: map['maxTokens'] ?? 16384,
+      timeout: map['timeout'] ?? 60,
     );
   }
 }
