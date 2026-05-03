@@ -21,7 +21,6 @@ dependencies:
   flutter_bloc: 9.1.1
   rxdart: 0.28.0
   country_pickers: 3.0.1
-  supabase_flutter: 2.9.0
 
   # Network client
   dio: 5.8.0+1

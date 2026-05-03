@@ -1,8 +1,15 @@
 # Flutter Boilerplate
 
-Flutter AI chat application using NVIDIA API (`z-ai/glm4.7` model). Clean Architecture with BLoC state management. Dart SDK ^3.8.0, Material 3 enabled.
+Flutter AI chat application using Google Gemini API (`gemini-2.5-flash-lite` model). Clean Architecture with BLoC state management. Dart SDK ^3.8.0, Material 3 enabled.
 
-## Commands
+## Getting Started
+
+### Prerequisites
+
+- Flutter SDK (Dart ^3.8.0)
+- A Google AI API key from [Google AI Studio](https://aistudio.google.com/apikey)
+
+### Commands
 
 ```bash
 # Install dependencies
@@ -96,24 +103,51 @@ Presentation layer KHÔNG phụ thuộc trực tiếp vào Data layer.
 
 ## Chat Feature
 
-- **ChatApi** (`data/datasource/remote/chat_api.dart`) — Retrofit POST to `/chat/completions` on NVIDIA API
+- **ChatApi** (`data/datasource/remote/chat_api.dart`) — Retrofit POST to `/models/{model}:generateContent` on Google Generative AI API
 - **ChatLocalDatasource** (`data/datasource/local/chat_local_datasource.dart`) — stores conversations as JSON in SharedPreferences
 - **ChatRepository** (`domain/repository/`) — abstract interface + impl combining API + local storage
 - **ChatUsecase** (`domain/usecase/`) — thin wrapper over repository
 - **ChatListBloc** (`@singleton`) — conversation CRUD (load, create, delete)
 - **ChatDetailBloc** (per-instance) — message sending with optimistic UI
 
-### API Payload (OpenAI-compatible)
+### API Payload (Gemini-compatible)
 
 ```json
 {
-  "model": "z-ai/glm4.7",
-  "messages": [...],
-  "temperature": 1,
-  "top_p": 1,
-  "max_tokens": 16384
+  "contents": [
+    {
+      "parts": [{"text": "Hello"}],
+      "role": "user"
+    }
+  ],
+  "generationConfig": {
+    "temperature": 1,
+    "maxOutputTokens": 16384
+  }
 }
 ```
+
+API key is passed as `?key=` query parameter. Model is passed as path parameter.
+
+### Configuration
+
+API key is configured in `lib/src/core/configurations/env/dev_env.dart`:
+
+```dart
+final devEnv = {
+  'chat': {
+    'baseUrl': 'https://generativelanguage.googleapis.com/v1beta',
+    'apiKey': '<your_api_key>',
+    'model': 'gemini-2.5-flash-lite',
+    'stream': false,
+    'enableThinking': false,
+    'maxTokens': 16384,
+    'timeout': 180,
+  },
+};
+```
+
+Replace `<your_api_key>` with your actual Google AI API key from [Google AI Studio](https://aistudio.google.com/apikey).
 
 ## Bootstrap Flow
 
@@ -134,9 +168,9 @@ main.dart → AppDelegate.run(devEnv) → runZonedGuarded()
 
 ## Dependency Injection
 
-Three injectable modules in `dependency/modules/`:
+Two injectable modules in `dependency/modules/`:
 - `LocalStorageModule` — SharedPreferences + prod Dio
-- `DatesourceModule` — ChatNetworkProvider
+- `DatesourceModule` — ChatNetworkProvider (Dio with LoggerInterceptor)
 
 Access via `injector.get<T>()`.
 
@@ -179,3 +213,11 @@ Uses `package:flutter_lints/flutter.yaml` with custom overrides:
 - 1 file = 1 public class
 - File không quá 250 lines
 - KHÔNG có widget class private (trừ `_XxxState` companion)
+
+## Supported Platforms
+
+- Android
+- iOS
+- macOS
+- Web
+- Windows
